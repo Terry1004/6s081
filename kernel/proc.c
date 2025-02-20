@@ -224,6 +224,7 @@ userinit(void)
   // prepare for the very first "return" from kernel to user.
   p->trapframe->epc = 0;      // user program counter
   p->trapframe->sp = PGSIZE;  // user stack pointer
+  p->trace_flag = 0;          // user trace flag
 
   safestrcpy(p->name, "initcode", sizeof(p->name));
   p->cwd = namei("/");
@@ -282,6 +283,9 @@ fork(void)
 
   // Cause fork to return 0 in the child.
   np->trapframe->a0 = 0;
+
+  // Copy trace flag from parent to child
+  np->trace_flag = p->trace_flag;
 
   // increment reference counts on open file descriptors.
   for(i = 0; i < NOFILE; i++)
