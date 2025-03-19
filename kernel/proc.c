@@ -154,8 +154,10 @@ freeproc(struct proc *p)
 
   char* pa = (char*) kvmpa(p->kpagetable, p->kstack);
   kfree(pa);
+  p->kstack = 0;
   if (p->kpagetable)
     proc_freekpagetable(p->kpagetable);
+  p->kpagetable = 0;
 
   p->state = UNUSED;
 }
