@@ -120,6 +120,7 @@ found:
     release(&p->lock);
     return 0;
   }
+  p->ticks_passed = 0;
 
   // Set up new context to start executing at forkret,
   // which returns to user space.
