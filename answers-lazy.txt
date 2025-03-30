@@ -1,0 +1,3 @@
+> Try to guess what the result of this modification will be: what will break?
+- malloc will break because it tries to access memory that is not actually allocated by the kernel.
+
